@@ -95,7 +95,8 @@ class Aba
       # Build errors
       all_errors = {}
       all_errors[:aba] = self.error_collection unless self.error_collection.empty?
-      transaction_error_collection = @transactions.each_with_index.map{ |(k, t), i| [k, t.error_collection] }.reject{ |e| e[1].nil? || e[1].empty? }.to_h
+      #transaction_error_collection = @transactions.each_with_index.map{ |(k, t), i| [k, t.error_collection] }.reject{ |e| e[1].nil? || e[1].empty? }.to_h
+      transaction_error_collection = @transactions.each_with_index.map { |t, i| [i, t.error_collection] unless t.error_collection.blank? }.compact
       all_errors[:transactions] = transaction_error_collection unless transaction_error_collection.empty?
 
       return all_errors unless all_errors.empty?
